@@ -1,19 +1,26 @@
 import _ from 'lodash';
-import './style.css';
-import img from './1.jpg'
+import print from './print.js';
 
 function component () {
   var element = document.createElement('div');
+
+  var btn = document.createElement('button');
+
   element.innerHTML = _.join(['Hello', 'webpack'], '');
-  element.classList.add('hello');
+  btn.onClick = HTMLIFrameElement.printMe
 
-  // 将图片添加到div
-  let myImg = new Image();
-  myImg.src = img;
+  btn.innerHTML = 'Click me and check the console';
 
-  element.appendChild(myImg);
-
+  element.appendChild(btn);
+  console.log("this is test")
   return element;
 }
 
 document.body.appendChild(component());
+
+if (module.hot) {
+  module.hot.accept('./print.js', function() {
+    console.log('Accepting the update printMe module');
+    printMe();
+  })
+}
